@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Lower Brightness</string>
+    <string name="action_settings">Settings</string>
+    <string name="start_brightness">On</string>
+    <string name="brightness_control">Brightness control</string>
+    <string name="stop_brightness">off</string>
+    <string name="opacity">Opacity</string>
+    <string name="timer_of_brightness_working">Timer of brightness working</string>
+    <string name="btn_timer_reset">Timer reset</string>
+    <string name="percent_opacity_filter">%1$d %%</string>
+</resources>
