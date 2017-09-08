@@ -1,11 +1,17 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="LowerBrightness.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="AppTheme" parent="LowerBrightness.Base">
+    </style>
+
+    <style name="noWindowTranslucent" parent="AppTheme">
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -28,6 +34,14 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:paddingLeft">24dp</item>
         <item name="android:paddingRight">24dp</item>
+        <item name="android:minHeight">38dp</item>
+    </style>
+
+    <style name="SettingButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_setting_selector</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
         <item name="android:minHeight">38dp</item>
     </style>
 

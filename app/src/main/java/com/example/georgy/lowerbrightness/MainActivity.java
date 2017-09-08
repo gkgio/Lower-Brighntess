@@ -97,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivityForResult(intent, SETTING_REQUEST_CODE);
                 break;
+            default:
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -116,6 +118,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 radioButtonOn.setChecked(false);
                 stopService(intent);
                 seekBarLevel.setProgress(oldBrightness);
+                break;
+            default:
                 break;
         }
     }

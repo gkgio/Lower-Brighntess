@@ -3,11 +3,11 @@ package com.example.georgy.lowerbrightness;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 
 /**
  * Created by georgy on 08.09.2017.
+ * gkgio
  */
 
 public class NightService extends Service {
