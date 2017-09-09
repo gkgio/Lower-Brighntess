@@ -1,5 +1,8 @@
 package com.example.georgy.lowerbrightness;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,6 +13,8 @@ import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -25,10 +30,10 @@ public class NightService extends Service {
     private static final String ACTION_STRING_SERVICE = "ToService";
     private static final String OLD_BRIGHTNESS_PREFERENCE = "oldBrightness";
     private static final String NEW_BRIGHTNESS_PREFERENCE = "newBrightness";
+    private static final int NOTIFICATION_ID = 157;
+
     private boolean isFilterView;
-
     private SharedPreferences sharedPreferences;
-
     private LinearLayout filterView;
     private WindowManager windowManager;
 
@@ -62,6 +67,7 @@ public class NightService extends Service {
             registerReceiver(serviceReceiver, intentFilter);
         }
         filterView = new LinearLayout(this);
+        windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
     }
 
@@ -70,7 +76,8 @@ public class NightService extends Service {
         Log.d(NIGHT_SERVICE, "onStartCommand");
         int oldBrightnessLevel = sharedPreferences.getInt(OLD_BRIGHTNESS_PREFERENCE, 100);
         createFilter(oldBrightnessLevel);
-        return super.onStartCommand(intent, flags, startId);
+        createNotification();
+        return START_STICKY;
     }
 
     @Override
@@ -79,10 +86,12 @@ public class NightService extends Service {
         Log.d("Service", "onDestroy");
         // Unregister the receiver
         unregisterReceiver(serviceReceiver);
+
         if (filterView != null) {
-            WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
             windowManager.removeView(filterView);
         }
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll(); //clear notification when service stops
     }
 
     @Override
@@ -100,8 +109,6 @@ public class NightService extends Service {
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
 
-
-        windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         if (isFilterView)
             windowManager.updateViewLayout(filterView, layoutParams);
         else {
@@ -118,5 +125,26 @@ public class NightService extends Service {
         String hex = String.format("%02x%02x%02x%02x", -alpha + 200, red, green, blue);
         int color = (int) Long.parseLong(hex, 16);
         return color;
+    }
+
+    private void createNotification() {
+
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+
+        PendingIntent contentIntent = PendingIntent.getActivity(this,
+                0, notificationIntent,
+                PendingIntent.FLAG_CANCEL_CURRENT);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setContentIntent(contentIntent)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Lower Brightness")
+                .setContentText("Click to open")
+                .setAutoCancel(false)
+                .setPriority(NotificationCompat.PRIORITY_MAX);
+
+        Notification notification = builder.build();
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(NOTIFICATION_ID, notification);
     }
 }
