@@ -25,6 +25,7 @@ public class NightService extends Service {
     private static final String ACTION_STRING_SERVICE = "ToService";
     private static final String OLD_BRIGHTNESS_PREFERENCE = "oldBrightness";
     private static final String NEW_BRIGHTNESS_PREFERENCE = "newBrightness";
+    private boolean isFilterView;
 
     private SharedPreferences sharedPreferences;
 
@@ -38,7 +39,6 @@ public class NightService extends Service {
             Log.d(NIGHT_SERVICE, "onReceive");
 
             int newSeekBarProgress = sharedPreferences.getInt(NEW_BRIGHTNESS_PREFERENCE, 100);
-            windowManager.removeViewImmediate(filterView);
             createFilter(newSeekBarProgress);
         }
     };
@@ -102,7 +102,12 @@ public class NightService extends Service {
 
 
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-        windowManager.addView(filterView, layoutParams);
+        if (isFilterView)
+            windowManager.updateViewLayout(filterView, layoutParams);
+        else {
+            windowManager.addView(filterView, layoutParams);
+            isFilterView = true;
+        }
     }
 
     private int getColorForFilter(int alpha) {
@@ -110,7 +115,7 @@ public class NightService extends Service {
         red = 0x00;
         green = 0x00;
         blue = 0x00;
-        String hex = String.format("%02x%02x%02x%02x", alpha + 70, red, green, blue);
+        String hex = String.format("%02x%02x%02x%02x", -alpha + 200, red, green, blue);
         int color = (int) Long.parseLong(hex, 16);
         return color;
     }

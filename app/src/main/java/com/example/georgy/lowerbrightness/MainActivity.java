@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = sharedPreferences.edit();
-        editor.putInt(OLD_BRIGHTNESS_PREFERENCE, oldBrightness);
+        editor.putInt(OLD_BRIGHTNESS_PREFERENCE, oldBrightnessPercent);
         editor.apply();
 
         checkboxTimer.setOnCheckedChangeListener(this);
