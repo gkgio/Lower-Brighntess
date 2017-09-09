@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int SETTING_REQUEST_CODE = 145;
     private static final String OLD_BRIGHTNESS_PREFERENCE = "oldBrightness";
     private static final String NEW_BRIGHTNESS_PREFERENCE = "newBrightness";
+    private static final String ACTION_STRING_SERVICE = "ToService";
 
     private RadioButton radioButtonOn;
     private RadioButton radioButtonOff;
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TimeEditText etTimer;
     private CheckBox checkboxTimer;
 
-    private int oldBrightness;
+    private int oldBrightnessPercent;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         etTimer = (TimeEditText) findViewById(R.id.etTimer);
         radioButtonOn.setOnClickListener(this);
         radioButtonOff.setOnClickListener(this);
-
+        int oldBrightness = 0;
         try {
             oldBrightness = Settings.System.getInt(MainActivity.this.getContentResolver(),
                     Settings.System.SCREEN_BRIGHTNESS);
@@ -57,11 +59,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
 
-        int oldBrightnessPercent = oldBrightness * 100 / 255;
+        oldBrightnessPercent = oldBrightness * 100 / 255;
+        if (oldBrightnessPercent > 20) {
+            oldBrightnessPercent = oldBrightnessPercent / 2 + 50;
+        } else oldBrightnessPercent += 30;
 
         seekBarLevel.setProgress(oldBrightnessPercent);
         seekBarLevel.setOnSeekBarChangeListener(this);
-        tvOpacityLevel.setText(getString(R.string.percent_opacity_filter, oldBrightness));
+        tvOpacityLevel.setText(getString(R.string.percent_opacity_filter, oldBrightnessPercent));
 
         Button btnTimerReset = (Button) findViewById(R.id.btnTimerReset);
         btnTimerReset.setOnClickListener(new View.OnClickListener() {
@@ -113,11 +118,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.radioButtonOn:
                 radioButtonOff.setChecked(false);
                 startService(intent);
+                Log.d("night", "on");
                 break;
             case R.id.radioButtonOff:
                 radioButtonOn.setChecked(false);
                 stopService(intent);
-                seekBarLevel.setProgress(oldBrightness);
+                seekBarLevel.setProgress(oldBrightnessPercent);
+                Log.d("night", "off");
                 break;
             default:
                 break;
@@ -141,11 +148,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int newBrightness = seekBar.getProgress();
         editor.putInt(NEW_BRIGHTNESS_PREFERENCE, newBrightness);
         editor.apply();
+
+        if (radioButtonOn.isChecked())
+            sendBroadcast();
     }
 
     //TODO need to write timer of working service
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+    }
+
+
+    private void sendBroadcast() {
+        Intent new_intent = new Intent();
+        new_intent.setAction(ACTION_STRING_SERVICE);
+        sendBroadcast(new_intent);
     }
 }

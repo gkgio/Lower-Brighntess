@@ -11,4 +11,7 @@
     <string name="language">Language</string>
     <string name="check_for_updates">Check for updates</string>
     <string name="about">About</string>
+    <string name="setting_activity_name">Setting</string>
+    <string name="logo_title">Lower Brightness</string>
+    <string name="image_description">logo splash</string>
 </resources>

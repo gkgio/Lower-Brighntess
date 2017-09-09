@@ -1,9 +1,5 @@
 package com.example.georgy.lowerbrightness;
 
-/**
- * Created by georgy on 07.09.2017.
- */
-
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -22,13 +18,11 @@ import android.view.inputmethod.BaseInputConnection;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 
 /**
  * A custom EditText (actually derived from TextView) to input time in 24h format.
  * <p>
  * Features:
- * - It always shows the currently set time, so it's never empty.
  * - Both virtual and physical keyboards can be used.
  * - The current digit is highlighted; when a number on the keyboard is pressed, the digit is replaced.
  * - Back key moves the cursor backward.
@@ -166,7 +160,10 @@ public class TimeEditText extends android.support.v7.widget.AppCompatTextView {
             return true;
         }
 
-        char c = (char) event.getUnicodeChar();
+        char c = 0;
+        if (event != null) {
+            c = (char) event.getUnicodeChar();
+        }
         if (c >= '0' && c <= '9') {
             currentPosition = currentPosition == POSITION_NONE ? 0 : currentPosition;
             int n = c - '0';
