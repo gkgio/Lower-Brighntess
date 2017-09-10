@@ -14,4 +14,7 @@
     <string name="setting_activity_name">Setting</string>
     <string name="logo_title">Lower Brightness</string>
     <string name="image_description">logo splash</string>
+    <string name="timer_error">Need to write time!</string>
+    <string name="timer_finish_message">Timer finish to work. App the end!</string>
+    <string name="permission_error_message">Permission denied. Please enable it in Settings. App will exit now</string>
 </resources>

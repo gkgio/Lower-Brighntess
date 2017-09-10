@@ -16,16 +16,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="24dp"
         android:contentDescription="@string/image_description"
         android:src="@drawable/ic_night" />
 
     <TextView
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:text="@string/logo_title" />
+        android:text="@string/logo_title"
+        android:textColor="@android:color/white"
+        android:textSize="24sp" />
 
 </LinearLayout>

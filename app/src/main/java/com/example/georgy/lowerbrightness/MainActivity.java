@@ -3,6 +3,7 @@ package com.example.georgy.lowerbrightness;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -17,8 +18,12 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
+import com.example.georgy.lowerbrightness.common.enums.MessageType;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,
+        SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
 
     private static final int SETTING_REQUEST_CODE = 145;
     private static final String OLD_BRIGHTNESS_PREFERENCE = "oldBrightness";
@@ -32,9 +37,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TimeEditText etTimer;
     private CheckBox checkboxTimer;
 
+    private CountDownTimer countDownTimer;
     private int oldBrightnessPercent;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private boolean isRunningTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,11 +125,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.radioButtonOn:
                 radioButtonOff.setChecked(false);
                 startService(intent);
+                if (checkboxTimer.isChecked()) {
+                    int hour = etTimer.getHour();
+                    int minutes = etTimer.getMinutes();
+                    createTimer(hour * 3600000 + minutes * 60000);
+                }
                 Log.d("night", "on");
                 break;
             case R.id.radioButtonOff:
                 radioButtonOn.setChecked(false);
                 stopService(intent);
+                if (isRunningTimer) {
+                    checkboxTimer.setChecked(false);
+                    countDownTimer.cancel();
+                }
                 seekBarLevel.setProgress(oldBrightnessPercent);
                 Log.d("night", "off");
                 break;
@@ -153,12 +169,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             sendBroadcast();
     }
 
-    //TODO need to write timer of working service
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+        if (isChecked) {
+            int hour = etTimer.getHour();
+            int minutes = etTimer.getMinutes();
+            if ((hour == 0) && (minutes == 0)) {
+                showToast(R.string.timer_error, MessageType.INFO);
+                checkboxTimer.setChecked(false);
+            }
+        } else countDownTimer.cancel();
     }
 
+    private void createTimer(long time) {
+        countDownTimer = new CountDownTimer(time, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                isRunningTimer = true;
+                long hour = (millisUntilFinished / 3600000) % 24;
+                long min = (millisUntilFinished / 60000) % 60;
+                long sec = (millisUntilFinished / 1000) % 60;
+                if ((etTimer.getHour() != hour) && (min == 0))
+                    etTimer.setHour((int) hour);
+                if ((etTimer.getMinutes() != min) && (sec == 0)) {
+                    etTimer.setMinutes((int) min);
+                }
+            }
+
+            public void onFinish() {
+                isRunningTimer = false;
+                showToast(R.string.timer_finish_message, MessageType.INFO);
+                Intent intent = new Intent(MainActivity.this, NightService.class);
+                stopService(intent);
+                radioButtonOn.setChecked(false);
+                radioButtonOff.setChecked(true);
+                checkboxTimer.setChecked(false);
+                etTimer.setMinutes(0);
+            }
+        }.start();
+    }
+
+    private void showToast(int message, @MessageType int type) {
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        View toastView = toast.getView();
+        toastView.setBackgroundResource(type == MessageType.ERROR ? R.drawable.toast_error_bg : R.drawable.toast_info_bg);
+        toast.show();
+    }
 
     private void sendBroadcast() {
         Intent new_intent = new Intent();
