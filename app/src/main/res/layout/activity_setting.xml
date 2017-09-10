@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/cream"
     android:orientation="vertical"
-    tools:context="com.example.georgy.lowerbrightness.SettingActivity">
+    tools:context="com.example.georgy.lowerbrightness.ui.SettingActivity">
 
     <!-- toolbar -->
     <include layout="@layout/toolbar" />

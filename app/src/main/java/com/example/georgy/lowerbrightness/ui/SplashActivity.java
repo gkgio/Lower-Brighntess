@@ -1,4 +1,4 @@
-package com.example.georgy.lowerbrightness;
+package com.example.georgy.lowerbrightness.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,12 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.georgy.lowerbrightness.R;
 import com.example.georgy.lowerbrightness.common.enums.MessageType;
 
 public class SplashActivity extends AppCompatActivity {
 
     final int SYSTEM_ALERT_WINDOWS_REQUEST = 1;
-
 
     Runnable r = new Runnable() {
         @Override
@@ -31,7 +31,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         firstRun();
-
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.georgy.lowerbrightness;
+package com.example.georgy.lowerbrightness.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,7 +20,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.georgy.lowerbrightness.R;
+import com.example.georgy.lowerbrightness.TimeEditText;
 import com.example.georgy.lowerbrightness.common.enums.MessageType;
+import com.example.georgy.lowerbrightness.services.NightService;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
         SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {

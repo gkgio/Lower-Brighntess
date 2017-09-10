@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cream"
-    tools:context="com.example.georgy.lowerbrightness.MainActivity">
+    tools:context="com.example.georgy.lowerbrightness.ui.MainActivity">
 
     <!-- toolbar -->
     <include layout="@layout/toolbar" />

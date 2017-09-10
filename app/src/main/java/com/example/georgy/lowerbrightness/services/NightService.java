@@ -1,4 +1,4 @@
-package com.example.georgy.lowerbrightness;
+package com.example.georgy.lowerbrightness.services;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -18,6 +18,9 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+
+import com.example.georgy.lowerbrightness.ui.MainActivity;
+import com.example.georgy.lowerbrightness.R;
 
 /**
  * Created by georgy on 08.09.2017.
