@@ -143,9 +143,11 @@ public class NightService extends Service {
                 .setContentTitle("Lower Brightness")
                 .setContentText("Click to open")
                 .setAutoCancel(false)
-                .setPriority(NotificationCompat.PRIORITY_MAX);
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setOngoing(true);
 
         Notification notification = builder.build();
+        notification.flags = Notification.FLAG_ONGOING_EVENT;
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(NOTIFICATION_ID, notification);
