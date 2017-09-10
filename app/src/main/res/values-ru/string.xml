@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lower Brightness</string>
+    <string name="action_settings">Настройки</string>
+    <string name="start_brightness">Вкл</string>
+    <string name="brightness_control">Управление яркостью</string>
+    <string name="stop_brightness">Выкл</string>
+    <string name="opacity">Затемнение</string>
+    <string name="timer_of_brightness_working">Таймер работы затемнения</string>
+    <string name="btn_timer_reset">Сброс таймера</string>
+    <string name="percent_opacity_filter">%1$d %%</string>
+    <string name="language">Язык</string>
+    <string name="check_for_updates">Проверить наличие обновлении</string>
+    <string name="about">О приложении</string>
+    <string name="setting_activity_name">Настройки</string>
+    <string name="logo_title">Lower Brightness</string>
+    <string name="image_description">Логотип заставки</string>
+    <string name="timer_error">Нужно указать время!</string>
+    <string name="timer_finish_message">Таймер закончил работу. Приложение закрывается!</string>
+    <string name="permission_error_message">Ошибка доступа. Зайдите в настройки и предоставьте разрешения</string>
+</resources>
