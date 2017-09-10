@@ -11,6 +11,7 @@
     <include layout="@layout/toolbar" />
 
     <Button
+        android:id="@+id/btnLanguage"
         style="@style/SettingButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,6 +21,7 @@
         android:textAllCaps="false" />
 
     <Button
+        android:id="@+id/btnCheckUpdate"
         style="@style/SettingButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,6 +31,7 @@
         android:textAllCaps="false" />
 
     <Button
+        android:id="@+id/btnAbout"
         style="@style/SettingButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,6 +39,5 @@
         android:gravity="start|center_vertical"
         android:text="@string/about"
         android:textAllCaps="false" />
-
 
 </LinearLayout>

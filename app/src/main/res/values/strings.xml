@@ -17,9 +17,9 @@
     <string name="image_description">logo splash</string>
     <string name="timer_error">Need to write time!</string>
     <string name="timer_finish_message">Timer finish to work. App the end!</string>
+    <string name="permission_error_message">Permission denied. Please enable it in Settings. App will exit now</string>
     <string name="language_dialog_title">Language</string>
     <string name="language_english">English</string>
     <string name="cancel">Cancel</string>
-    <string name="language_russian">Russian</string> <string name="permission_error_message">Permission denied. Please enable it in Settings. App will exit now</string>
-
+    <string name="language_russian">Russian</string>
 </resources>

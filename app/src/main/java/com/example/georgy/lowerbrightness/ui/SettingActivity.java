@@ -6,10 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
+import com.example.georgy.lowerbrightness.LanguageDialogFragment;
 import com.example.georgy.lowerbrightness.R;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,12 @@ public class SettingActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
         }
+
+        Button btnLanguage = (Button) findViewById(R.id.btnLanguage);
+        Button btnCheckUpdate = (Button) findViewById(R.id.btnCheckUpdate);
+        Button btnAbout = (Button) findViewById(R.id.btnAbout);
+
+        btnLanguage.setOnClickListener(this);
     }
 
     @Override
@@ -42,5 +51,21 @@ public class SettingActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.btnLanguage:
+                new LanguageDialogFragment().show(getFragmentManager(), "dialogLanguage");
+                break;
+            case R.id.btnCheckUpdate:
+                break;
+            case R.id.btnAbout:
+                break;
+            default:
+                break;
+        }
     }
 }

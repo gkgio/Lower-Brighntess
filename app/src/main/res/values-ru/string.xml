@@ -18,4 +18,8 @@
     <string name="timer_error">Нужно указать время!</string>
     <string name="timer_finish_message">Таймер закончил работу. Приложение закрывается!</string>
     <string name="permission_error_message">Ошибка доступа. Зайдите в настройки и предоставьте разрешения</string>
+    <string name="language_dialog_title">Сменить язык</string>
+    <string name="language_english">Английский</string>
+    <string name="cancel">Отмена</string>
+    <string name="language_russian">Русский</string>
 </resources>

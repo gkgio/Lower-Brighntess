@@ -21,17 +21,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.SettingActivity" />
+        <activity
+            android:name=".ui.SettingActivity"
+            android:configChanges="locale"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.MainActivity"
-            android:launchMode="singleTop" />
+            android:configChanges="locale"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name=".services.NightService"
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".ui.AboutActivity"></activity>
+        <activity
+            android:name=".ui.AboutActivity"
+            android:configChanges="locale" />
     </application>
 
 </manifest>
